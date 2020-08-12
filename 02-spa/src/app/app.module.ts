@@ -37,4 +37,5 @@ import { HeroeTarjetaComponent } from './components/heroe-tarjeta/heroe-tarjeta.
     ],
     bootstrap: [AppComponent]
 })
+
 export class AppModule { }

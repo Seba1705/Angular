@@ -1,4 +1,4 @@
-<h1>Buscando: <small>{{ termino }}</small></h1>
+<h1>Buscando: <small> {{ termino }} </small></h1>
 <hr>
 
 <div class="row animated fadeIn fast" *ngIf="heroes.length == 0">
@@ -10,10 +10,6 @@
 </div>
 
 <div class="card-columns">
-        <app-heroe-tarjeta 
-        *ngFor='let heroe of heroes let i=index'
-        [heroe]='heroe'
-        [index]='heroe.idx'
-    >
-    </app-heroe-tarjeta>  
+    <app-heroe-tarjeta *ngFor='let heroe of heroes let i=index' [heroe]='heroe' [index]='heroe.idx'>
+    </app-heroe-tarjeta>
 </div>
