@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
     selector: 'app-reactive',
@@ -11,19 +11,90 @@ export class ReactiveComponent implements OnInit {
     
     constructor(private fb: FormBuilder) { 
         this.crearFormulario();
+        this.cargarDataAlFormulario();
     }
   
     ngOnInit(): void { }
 
+    get nombreNoValido() {
+        return this.forma.get('nombre').invalid && this.forma.get('nombre').touched;
+    }
+
+    get apellidoNoValido() {
+        return this.forma.get('apellido').invalid && this.forma.get('apellido').touched;
+    }
+    
+    get correoNoValido() {
+        return this.forma.get('correo').invalid && this.forma.get('correo').touched;
+    }
+
+    get localidadNoValida() {
+        return this.forma.get('direccion.localidad').invalid && this.forma.get('direccion.localidad').touched;
+    }
+
+    get provinciaNoValida() {
+        return this.forma.get('direccion.provincia').invalid && this.forma.get('direccion.provincia').touched;
+    }
+
+    get pasaTiempos() {
+        return this.forma.get('pasaTiempos') as FormArray;
+    }
+
     crearFormulario() {
         this.forma = this.fb.group({
-            nombre: ['Sebastian'], // [Valor defecto, Validacion sincrona, Validacion Asincrona]
-            apellido: ['Aguirre'],
-            correo: ['test@mail.com']
+            nombre: ['', [Validators.required, Validators.minLength(5)]],
+            apellido: ['', [Validators.required, Validators.minLength(2)]],
+            correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+            direccion: this.fb.group({
+                localidad: ['', Validators.required],
+                provincia: ['', Validators.required]
+            }),
+            pasaTiempos: this.fb.array([])
         });
+    }
+
+    cargarDataAlFormulario() {
+        this.forma.setValue({
+            nombre: 'Sebasian',
+            apellido: 'Aguirre',
+            correo: 'test@gmail.com',
+            direccion: {
+                localidad: 'Lanus',
+                provincia: 'Buenos Aires'
+            },
+            pasaTiempos: []
+        })
+    }
+
+    agregarPasatiempo() {
+        this.pasaTiempos.push(this.fb.control('Nuevo elemento', Validators.required))
+    }
+
+    borrarPasaTiempo(index:number) {
+        this.pasaTiempos.removeAt(index);
     }
 
     guardar() {
         console.log(this.forma);
+        if (this.forma.invalid) {
+            return Object.values(this.forma.controls).forEach(control => {
+                if (control instanceof FormGroup)
+                    Object.values(control.controls).forEach(control => control.markAsTouched());
+                else
+                    control.markAsTouched();
+            });
+        }
+
+        this.forma.reset();
+        // this.forma.setValue({
+        //     nombre: 'Sebasian',
+        //     apellido: 'Aguirre',
+        //     correo: 'test@gmail.com',
+        //     direccion: {
+        //         localidad: 'Lanus',
+        //         provincia: 'Buenos Aires'
+        //     },
+        //     pasaTiempos: []
+        // })
     }
 }
