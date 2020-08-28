@@ -16,7 +16,7 @@
                     <label class="col-2 col-form-label" [class.text-danger]="apellidoNoValido">Apellido</label>
                     <div class="col ">
                         <input class="form-control" type="text" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoNoValido">
-                        <small *ngIf="apellidoNoValido" class="text-danger">Ingrese 2 letras</small>
+                        <small *ngIf="apellidoNoValido" class="text-danger">Apellido Inconrrecto</small>
                     </div>
                 </div>
             </div>
@@ -29,6 +29,29 @@
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label class="col-2 col-form-label" [class.text-danger]="usuarioNoValido">Usuario</label>
+                <div class="col ">
+                    <input class="form-control" type="tet" placeholder="Nombre de Usuario" formControlName="usuario" [class.is-invalid]="usuarioNoValido">
+                    <small *ngIf="usuarioNoValido" class="text-danger">Nombre de usuario incorrecto</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label" [class.text-danger]="passNoValida">Password</label>
+                <div class="col ">
+                    <input class="form-control" type="password" placeholder="Password" formControlName="pass" [class.is-invalid]="passNoValida">
+                    <small *ngIf="passNoValida" class="text-danger">Invalid Password</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-2 col-form-label" [class.text-danger]="rePassNoValida">Re Password</label>
+                <div class="col">
+                    <input class="form-control" type="password" placeholder="Repeat Password" formControlName="rePass" [class.is-invalid]="rePassNoValida">
+                    <small *ngIf="rePassNoValida" class="text-danger">Invalid Password</small>
+                </div>
+            </div>
 
             <div class="form-group row" formGroupName="direccion">
                 <label class="col-2 col-form-label" [class.text-danger]="localidadNoValida">Direccion</label>

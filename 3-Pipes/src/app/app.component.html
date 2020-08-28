@@ -31,6 +31,11 @@
                 <!-- Elimina a partir del 3 caracter -->
             </tr>
             <tr>
+                <td> {{ nombre2 }} </td>
+                <td> capitalizado </td>
+                <td> {{ nombre2 | capitalizado }} </td>
+            </tr>
+            <tr>
                 <td> {{ nombre }} </td>
                 <td> slice:1:5 </td>
                 <td> {{ nombre | slice:1:5 }} </td>
@@ -42,14 +47,77 @@
                 <td> {{ PI | number:'1.0-2' }} </td>
             </tr>
             <tr>
-                <td> {{ a }} </td>
+                <td> {{ porcentaje }} </td>
                 <td> percent </td>
-                <td> {{ a | percent }} </td>
+                <td> {{ porcentaje | percent }} </td>
             </tr>
             <tr>
-                <td> {{ a }} </td>
+                <td> {{ porcentaje }} </td>
                 <td> percent:'2.2-2' </td>
-                <td> {{ a | percent:'2.2-2' }} </td>
+                <td> {{ porcentaje | percent:'2.2-2' }} </td>
+            </tr>
+            <tr>
+                <td> {{ salario }} </td>
+                <td> currency </td>
+                <td> {{ salario | currency }} </td>
+            </tr>
+            <tr>
+                <td> {{ salario }} </td>
+                <td> currency 'EUR' </td>
+                <td> {{ salario | currency:'EUR' }} </td>
+            </tr>
+            <tr>
+                <td> {{ salario }} </td>
+                <td> currency:'CAD':'symbol':'.0-0' </td>
+                <td> {{ salario | currency:'CAD':'symbol':'.0-0' }} </td>
+            </tr>
+            <tr>
+                <td> {{ valorPromesa }} </td>
+                <td> async </td>
+                <td> {{ valorPromesa | async}} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td> date </td>
+                <td> {{ fecha | date}} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td> date: 'medium' </td>
+                <td> {{ fecha | date: 'medium' }} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td> date: 'short' </td>
+                <td> {{ fecha | date: 'short' }} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td> date: 'MMMM-dd' </td>
+                <td> {{ fecha | date: 'MMMM - dd' }} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td> date:'MMMM - dd':'':'en' </td>
+                <td> {{ fecha | date:'MMMM - dd':'':'en' }} </td>
+            </tr>
+            <tr>
+                <td> {{ fecha }} </td>
+                <td>
+                    date:'MMMM - dd':'':{{ idioma }} <br>
+                    <button class="btn btn-primary m-2" (click)="idioma = 'es'"> Español </button>
+                    <button class="btn btn-secondary m-2" (click)="idioma = 'fr'"> Francés </button>
+                    <button class="btn btn-success m-2" (click)="idioma = 'en'"> Inglés </button>
+                </td>
+                <td> {{ fecha | date:'MMMM - dd':'':idioma }} </td>
+            </tr>
+            <tr>
+                <td> {{ nombre }} </td>
+                <td>
+                    password <br>
+                    <button class="btn btn-outline-primary"> Activar / Desactivar</button>
+                </td>
+                <td> {{ nombre }} </td>
             </tr>
         </tbody>
     </table>
@@ -58,4 +126,20 @@
     <ul>
         <li *ngFor="let item of arreglo | slice:5:20 "> {{item}} </li>
     </ul>
+
+    <h3>JSON</h3>
+    <div class="row">
+        <div class="col">
+            {{ heroe | json }}
+        </div>
+    </div>
+
+    <h3 class="mt-4">Dom Seguro</h3>
+    <div class="row">
+
+        <div class="col">
+            <iframe width="560" height="315" [src]="videoUrl | domseguro" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+
 </div>

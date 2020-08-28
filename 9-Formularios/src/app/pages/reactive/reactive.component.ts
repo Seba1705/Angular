@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { ValidadoresService } from '../../services/validarores.service';
 
 @Component({
     selector: 'app-reactive',
@@ -9,7 +10,7 @@ export class ReactiveComponent implements OnInit {
 
     forma: FormGroup;
     
-    constructor(private fb: FormBuilder) { 
+    constructor(private fb: FormBuilder, private validadores: ValidadoresService) { 
         this.crearFormulario();
         this.cargarDataAlFormulario();
     }
@@ -40,24 +41,47 @@ export class ReactiveComponent implements OnInit {
         return this.forma.get('pasaTiempos') as FormArray;
     }
 
+    get passNoValida() {
+        return this.forma.get('pass').invalid && this.forma.get('pass').touched;
+    }
+
+    get rePassNoValida() {
+        const pass = this.forma.get('pass').value;
+        const rePass = this.forma.get('rePass').value;
+
+        return (pass === rePass) ? false : true;
+    }
+
+    get usuarioNoValido() {
+        return this.forma.get('usuario').invalid && this.forma.get('usuario').touched;
+    }
+
     crearFormulario() {
         this.forma = this.fb.group({
             nombre: ['', [Validators.required, Validators.minLength(5)]],
-            apellido: ['', [Validators.required, Validators.minLength(2)]],
+            apellido: ['', [Validators.required, Validators.minLength(2), this.validadores.noAguirre]],
             correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+            pass: ['', Validators.required],
+            rePass: ['', Validators.required],
+            usuario: ['', Validators.required, this.validadores.existeUsuario],
             direccion: this.fb.group({
                 localidad: ['', Validators.required],
                 provincia: ['', Validators.required]
             }),
             pasaTiempos: this.fb.array([])
+        },{
+            validators: this.validadores.passwordsIguales('pass', 'rePass')
         });
     }
 
     cargarDataAlFormulario() {
         this.forma.setValue({
             nombre: 'Sebasian',
-            apellido: 'Aguirre',
+            apellido: 'Aguirre0',
             correo: 'test@gmail.com',
+            pass: '123',
+            rePass: '123',
+            usuario: 'Seba',
             direccion: {
                 localidad: 'Lanus',
                 provincia: 'Buenos Aires'
