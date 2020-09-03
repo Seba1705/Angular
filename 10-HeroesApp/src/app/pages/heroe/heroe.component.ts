@@ -3,6 +3,7 @@ import { HeroeModel } from '../../models/heroe.model';
 import { NgForm } from '@angular/forms';
 import { HeroesService } from '../../services/hereos.service';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';;
 
 @Component({
     selector: 'app-heroe',
@@ -47,7 +48,7 @@ export class HeroeComponent implements OnInit {
 
             console.log(resp);
         })
-
-        
     }
+
+    
 }
