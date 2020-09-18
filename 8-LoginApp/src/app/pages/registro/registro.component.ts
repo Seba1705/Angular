@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioModel } from '../../models/app.models';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class RegistroComponent implements OnInit {
       usuario: UsuarioModel = new UsuarioModel();
-      recordarme = false;
+      recordarme = true;
     
       constructor(private auth: AuthService) {}
     
@@ -22,7 +21,7 @@ export class RegistroComponent implements OnInit {
             }   
       }
     
-      onSubmit(formulario: NgForm) {
+      onRegister(formulario: NgForm) {
             if (formulario.invalid) return;
               
             Swal.fire({

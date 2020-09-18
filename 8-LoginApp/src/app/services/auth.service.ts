@@ -57,7 +57,7 @@ export class AuthService {
         let hoy = new Date();
         hoy.setSeconds(3600);
 
-        localStorage.setItem('expira', hoy.getTime.toString())
+        localStorage.setItem('expira', hoy.getTime().toString())
     }
 
     leerToken(){

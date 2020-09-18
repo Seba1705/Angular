@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         }   
     }
 
-    login(formulario: NgForm) {
+    onLogin(formulario: NgForm) {
         if (formulario.invalid) return;
         
         Swal.fire({
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     
                     Swal.close();
                     this.router.navigateByUrl('/home');
+                    console.log(resp);
                 },
                 (err) => {
                     Swal.fire({
